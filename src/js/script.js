@@ -89,13 +89,10 @@
 
       thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
-      console.log('form',thisProduct.form)
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
-      console.log('formInputs', thisProduct.formInputs)
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
-      console.log('cartButton', thisProduct.cartButton)
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-      console.log('priceElem', thisProduct.priceElem)
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -180,8 +177,20 @@
 
            /* END ELSE IF: if option is not selected and option is default */
             }
+
+            const activeImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+
+            if(optionSelected && activeImage ){
+
+              activeImage.classList.add(classNames.menuProduct.imageVisible)
+            }
+
+            else if(activeImage){
+              activeImage.classList.remove(classNames.menuProduct.imageVisible)
+              }
+
          /* END LOOP: for each optionId in param.options */
-       }
+        }
        /* END LOOP: for each paramId in thisProduct.data.params */
       }
        /* set the contents of thisProduct.priceElem to be the value of variable price */
