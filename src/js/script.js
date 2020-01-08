@@ -196,7 +196,7 @@
       }
 
       /*multiply price by amount */
-      //price *= thisProduct.amountWidget.value;
+      price *= thisProduct.amountWidget.value;
       /* set the contents of thisProduct.priceElem to be the value of variable price */
       thisProduct.priceElem.innerHTML = price;
     }
