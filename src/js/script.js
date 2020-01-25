@@ -319,7 +319,9 @@
     announce(){
       const thisWidget = this;
 
-      const event = new Event('updated');
+      const event = new CustomEvent('updated',{
+        bubbles: true
+      });
       thisWidget.element.dispatchEvent(event);
     }
   }
@@ -329,10 +331,10 @@
       const thisCart = this;
 
       thisCart.product = [];
+      thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
 
       thisCart.getElements(element);
       thisCart.initActions();
-
       //console.log('new Cart', thisCart);
     }
 
@@ -344,6 +346,11 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+
+      thisCart.renderTotalKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
+      for(let key of thisCart.renderTotalKeys){
+        thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
+      }
     }
 
     initActions(){
@@ -351,6 +358,9 @@
       thisCart.dom.toggleTrigger.addEventListener('click', function(){
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+      thisCart.dom.productList.addEventListener('updated', function(){
+        thisCart.update();
+      })
     }
 
     add(menuProduct){
@@ -365,6 +375,32 @@
 
       thisCart.product.push(new CartProduct(menuProduct, generatedDOM));
       //console.log ('thisCart.products', thisCart.product);
+      thisCart.update();
+    }
+
+    update(){
+      const thisCart = this;
+
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
+
+      const cartProducts = thisCart.product;
+      for(let cartProduct of cartProducts){
+        thisCart.subtotalPrice += cartProduct.price;
+        thisCart.totalNumber += cartProduct.amount;
+      }
+
+      thisCart.totalPrice = thisCart.subtotalPrice +thisCart.deliveryFee;
+
+      console.log('totalNumber',thisCart.totalNumber);
+      console.log('subtotalPrice',thisCart.subtotalPrice);
+      console.log('totalPrice',thisCart.totalPrice);
+
+      for(let key of thisCart.renderTotalKeys){
+        for(let elem of thisCart.dom[key]){
+          elem.innerHTML = thisCart[key];
+        }
+      }
     }
   }
 
