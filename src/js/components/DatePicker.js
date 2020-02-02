@@ -1,6 +1,6 @@
-import BaseWidget from './BaseWidget';
+import BaseWidget from './BaseWidget.js';
 import {utils} from '../utils.js';
-import {select} from '../settings.js';
+import {select, settings} from '../settings.js';
 
 class DatePicker extends BaseWidget{
   constructor(wrapper){
@@ -10,6 +10,47 @@ class DatePicker extends BaseWidget{
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
     thisWidget.initPlugin();
+
+  }
+
+  initPlugin(){
+    const thisWidget = this;
+
+    thisWidget.minDate = new Date(thisWidget.value);
+
+
+    thisWidget.maxDate = new Date(utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture));
+
+    // eslint-disable-next-line no-undef
+    flatpickr(thisWidget.dom.input,{
+      enableTime: true,
+      dateFormat: 'Y-m-d',
+      minDate: thisWidget.minDate,
+      defaultDate: thisWidget.minDate,
+      maxDate: thisWidget.maxDate,
+      'disable': [
+        function(date) {
+          //return true to disable
+          return (date.getDate() === 1 || date.getDay() === 1);
+
+        }
+      ],
+      'locale': {
+        'firstDayOfWeek' : 1 // start week on Monday
+      }
+    });
+
+  }
+
+  parseValue(){
+
+  }
+
+  isValid(){
+    return true;
+  }
+
+  renderValue(){
 
   }
 }
