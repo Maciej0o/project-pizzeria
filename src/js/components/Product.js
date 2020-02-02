@@ -16,7 +16,7 @@ class Product{
     thisProduct.initAmountWidget();
     thisProduct.processOrder();
 
-    console.log('new Product:', thisProduct);
+    //console.log('new Product:', thisProduct);
   }
 
   renderInMenu(){
@@ -163,7 +163,7 @@ class Product{
     /* set the contents of thisProduct.priceElem to be the value of variable price */
     //thisProduct.priceElem.innerHTML = price;
     thisProduct.priceElem.innerHTML = thisProduct.price;
-    console.log('ajsdad',thisProduct.params);
+    //console.log('ajsdad',thisProduct.params);
   }
 
   initAmountWidget(){
