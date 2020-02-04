@@ -12,6 +12,7 @@ class Booking{
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.selectTable();
   }
 
   getData(){
@@ -75,6 +76,7 @@ class Booking{
   parseData(bookings, eventsCurrent, eventsRepeat){
     const thisBooking = this;
 
+
     thisBooking.booked = {};
 
     for(let item of bookings){
@@ -136,24 +138,42 @@ class Booking{
     }
 
     for(let table of thisBooking.dom.tables){
-      console.log(table);
+
+      //console.log(table);
+
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)){
         tableId = parseInt(tableId);
       }
-      console.log('sss',thisBooking.booked[thisBooking.date][thisBooking.hour])
+      //console.log('sss',thisBooking.booked[thisBooking.date][thisBooking.hour])
 
       if(
         !allAvailable
         &&
         thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
       ){
-        console.log('in',table);
+        //console.log('in',table);
         table.classList.add(classNames.booking.tableBooked);
       } else{
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+  }
+
+  selectTable(){
+    const thisBooking = this;
+
+    for(let table of thisBooking.dom.tables){
+        table.addEventListener('click', function(){
+          if(table.classList.contains(classNames.booking.tableBooked)){
+            console.log('booked',)
+          }else{
+            table.classList.add(classNames.booking.tableBooked);
+            
+          }
+      })
+    }
+
   }
 
   render(element){
