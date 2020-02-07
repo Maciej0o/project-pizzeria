@@ -10,7 +10,7 @@ const app = {
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
 
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
-
+    
     const idFromHash = window.location.hash.replace('#/', '');
 
     let pageMatchingHash = thisApp.pages[0].id;
@@ -24,7 +24,7 @@ const app = {
 
     thisApp.activatePage(pageMatchingHash);
 
-    for(let link of thisApp.navLinks){
+    for(let link of thisApp.navLinks ){
       link.addEventListener('click', function(){
         const clickedElement = this;
         event.preventDefault();
@@ -123,7 +123,7 @@ const app = {
     $(document).ready(function(){
       $(select.containerOf.carousel).slick({
         slidesToShow: 1,
-
+        dots: true,
         autoplay: true,
         autoplaySpeed: 3000,
 
