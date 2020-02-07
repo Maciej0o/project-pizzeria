@@ -11,6 +11,9 @@
   box-shadow: 0 0 $base-size rgba(0, 0, 0, 0.2);
   z-index: 9999;
 
+
+
+
   &.active {
     .cart__content {
       @include accordion-open();
@@ -107,6 +110,7 @@
       content: ':';
     }
 
+
   }
 
   // CODE ADDED END
@@ -154,6 +158,10 @@
       margin-bottom: ($base-size / 2);
     }
 
+  }
+
+  &.disabled{
+    display: none;
   }
 
 }

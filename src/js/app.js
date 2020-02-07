@@ -12,19 +12,23 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
 
-    console.log('navLinks', thisApp.navLinks)
     const idFromHash = window.location.hash.replace('#/', '');
 
     let pageMatchingHash = thisApp.pages[0].id;
 
-    for(let page of thisApp.pages){
+
+
+   for(let page of thisApp.pages){
       if(page.id == idFromHash){
         pageMatchingHash = page.id;
         break;
       }
+
     }
 
-    thisApp.activatePage(pageMatchingHash);
+    thisApp.activatePage(thisApp.pages[0].id);
+
+
 
     for(let link of thisApp.navLinks ){
       link.addEventListener('click', function(){
@@ -35,6 +39,20 @@ const app = {
         const id = clickedElement.getAttribute('href').replace('#', '');
         /* run thisApp.activatepage with that id */
         thisApp.activatePage(id);
+
+        thisApp.cart = document.querySelector(select.containerOf.cart);
+        thisApp.nav = document.querySelector(select.containerOf.nav);
+
+        if(id == select.containerOf.homePage){
+          thisApp.cart.classList.add(classNames.cart.disabled);
+          thisApp.nav.classList.add(classNames.nav.disabled);
+        }
+        if(id != select.containerOf.homePage){
+          thisApp.cart.classList.remove(classNames.cart.disabled);
+          thisApp.nav.classList.remove(classNames.nav.disabled);
+        }
+
+
 
         /* change URL hash */
         window.location.hash = '#/' + id;
@@ -48,6 +66,7 @@ const app = {
 
     /*add class "active" to matching pages, rwmove from non-matching */
     for(let page of thisApp.pages){
+
       //if(page.id == pageId){
       //  page.classList.add(classNames.pages.active);
       //}else{
