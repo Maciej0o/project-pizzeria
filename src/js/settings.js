@@ -75,6 +75,7 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',
+    homeNavLinks: '.home-btn a',
   },
 
 };
