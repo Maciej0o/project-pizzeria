@@ -117,6 +117,20 @@ const app = {
     thisApp.booking = new Booking(bookingElem);
   },
 
+  initCarousel:function(){
+    const thisApp = this;
+
+    $(document).ready(function(){
+      $(select.containerOf.carousel).slick({
+        slidesToShow: 1,
+
+        autoplay: true,
+        autoplaySpeed: 3000,
+
+      });
+    });
+  },
+
   init: function(){
     const thisApp = this;
     //console.log('*** App starting ***');
@@ -130,6 +144,7 @@ const app = {
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initCarousel();
   },
 };
 

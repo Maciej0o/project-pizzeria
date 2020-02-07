@@ -12,6 +12,7 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     home: '.home-wrapper',
+    carousel: '.slider-carousel',
   },
   all: {
     menuProducts: '#product-list > .product',
