@@ -108,6 +108,7 @@
   margin: 100px 0 20px 0;
   height: 200px;
 }
+
 .carousel-items{
   display: flex;
   justify-content: space-between;
@@ -115,8 +116,9 @@
 }
 
 .carousel-img{
-  width:35%;
+  width: 35%;
   height: 300px;
+
   img{
     width: 100%;
     height: 190px;
@@ -129,7 +131,7 @@
 .carousel-text{
   margin: 0 0 0 50px;
   text-align: left top;
-  width:64%;
+  width: 64%;
   font-family: $font-text;
 
   a{

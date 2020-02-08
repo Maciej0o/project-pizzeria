@@ -12,19 +12,19 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
 
-    const idFromHash = window.location.hash.replace('#/', '');
+    //const idFromHash = window.location.hash.replace('#/', '');
 
-    let pageMatchingHash = thisApp.pages[0].id;
+    //let pageMatchingHash = thisApp.pages[0].id;
 
 
 
-   for(let page of thisApp.pages){
+    /*for(let page of thisApp.pages){
       if(page.id == idFromHash){
         pageMatchingHash = page.id;
         break;
       }
 
-    }
+    }*/
 
     thisApp.activatePage(thisApp.pages[0].id);
 
@@ -139,9 +139,9 @@ const app = {
   },
 
   initCarousel:function(){
-    const thisApp = this;
-
+    // eslint-disable-next-line
     $(document).ready(function(){
+      // eslint-disable-next-line
       $(select.containerOf.carousel).slick({
         slidesToShow: 1,
         dots: true,
