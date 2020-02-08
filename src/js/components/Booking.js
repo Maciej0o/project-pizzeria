@@ -8,6 +8,8 @@ class Booking{
   constructor(bookingElement){
     const thisBooking = this;
 
+
+
     thisBooking.id = {};
     thisBooking.render(bookingElement);
     thisBooking.initWidgets();
@@ -103,6 +105,7 @@ class Booking{
   }
 
   makeBooked(date, hour, duration, table){
+
     const thisBooking = this;
 
     if(typeof thisBooking.booked[date] == 'undefined'){
@@ -116,9 +119,8 @@ class Booking{
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
         thisBooking.booked[date][hourBlock] = [];
       }
-
+      //console.log('thisBooking.booked[date][hourBlock]',thisBooking.booked[date][hourBlock])
       thisBooking.booked[date][hourBlock].push(table);
-
     }
   }
 
@@ -129,6 +131,8 @@ class Booking{
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
     let allAvailable = false;
+
+
 
     if(
       typeof thisBooking.booked[thisBooking.date] == 'undefined'
@@ -159,6 +163,7 @@ class Booking{
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+    thisBooking.rangeColourHour();
   }
 
   selectTable(){
@@ -189,7 +194,7 @@ class Booking{
 
 
       const url = settings.db.url + '/' + settings.db.booking;
-      console.log('url',url);
+      //console.log('url',url);
       const duration = parseInt(thisBooking.dom.hourBooking.value);
 
 
@@ -282,7 +287,49 @@ class Booking{
     });
   }
 
-  
+  rangeColourHour() {
+    const thisBooking = this;
+
+    let openingHours = {12:[],12.5:[],13:[],13.5:[],14:[],14.5:[],15:[],15.5:[],16:[],16.5:[],17:[],17.5:[],18:[],18.5:[],19:[],19.5:[],20:[],20.5:[],21:[],21.5:[],22:[],22.5:[],23:[],23.5:[],24:[]};
+
+
+    console.log('openingHours',openingHours);
+
+    const bookedHourss = thisBooking.booked[thisBooking.date];
+    const sliderDataForDay = [];
+    thisBooking.dom.rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
+
+
+    const bookedHours = Object.assign(openingHours, bookedHourss);
+    console.log(bookedHours);
+
+    const slider = thisBooking.dom.rangeSlider;
+    for (let bookedHour in bookedHours){
+
+
+      const secondBorder = (((bookedHour - 12) + .5 ) * 100) / 12;
+      const firstBorder = (secondBorder-((.5 ) * 100) / 12);
+
+
+      if ( bookedHour < 24 ) {
+        if
+        (bookedHours[bookedHour].length <=1) {
+          sliderDataForDay.push ('/*' + bookedHour + '*/green ' + firstBorder + '%, green ' + secondBorder + '%');
+        } else if
+        (bookedHours[bookedHour].length == 2) {
+          sliderDataForDay.push ('/*' + bookedHour + '*/orange ' + firstBorder + '%, orange ' + secondBorder + '% ');
+        } else if
+        (bookedHours[bookedHour].length >= 3){
+          sliderDataForDay.push ('/*' + bookedHour + '*/red ' + firstBorder + '%, red ' + secondBorder + '%');
+        }
+      }
+    }
+    sliderDataForDay.sort();
+    const greenOrangeRedString = sliderDataForDay.join();
+    slider.style.background =  'linear-gradient(to right, ' + greenOrangeRedString + ')';
+
+    console.log(greenOrangeRedString);
+  }
 
 }
 
