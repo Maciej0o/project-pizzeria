@@ -125,11 +125,12 @@ const app = {
     thisApp.cart = new Cart(cartElem);
 
     thisApp.productList = document.querySelector(select.containerOf.menu);
-
+    console.log(app.cart);
     thisApp.productList.addEventListener('add-to-cart', function(event){
       app.cart.add(event.detail.product);
     });
   },
+
   initBooking: function(){
     const thisApp = this;
 
