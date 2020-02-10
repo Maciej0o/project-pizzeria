@@ -40,15 +40,15 @@ const app = {
         /* run thisApp.activatepage with that id */
         thisApp.activatePage(id);
 
-        thisApp.cart = document.querySelector(select.containerOf.cart);
+        thisApp.cartUp = document.querySelector(select.containerOf.cart);
         thisApp.nav = document.querySelector(select.containerOf.nav);
 
         if(id == select.containerOf.homePage){
-          thisApp.cart.classList.add(classNames.cart.disabled);
+          thisApp.cartUp.classList.add(classNames.cart.disabled);
           thisApp.nav.classList.add(classNames.nav.disabled);
         }
         if(id != select.containerOf.homePage){
-          thisApp.cart.classList.remove(classNames.cart.disabled);
+          thisApp.cartUp.classList.remove(classNames.cart.disabled);
           thisApp.nav.classList.remove(classNames.nav.disabled);
         }
 
@@ -126,6 +126,7 @@ const app = {
 
     thisApp.productList = document.querySelector(select.containerOf.menu);
     console.log(app.cart);
+
     thisApp.productList.addEventListener('add-to-cart', function(event){
       app.cart.add(event.detail.product);
     });
